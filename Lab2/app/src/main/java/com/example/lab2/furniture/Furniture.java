@@ -51,7 +51,8 @@ public class Furniture implements Serializable {
         return warranty;
     }
 
-    public void setWarranty(int warranty) {
+    public void setWarranty(int warranty) throws Exception {
+        if (warranty > 10) throw new Exception("Мы не предоставляем гарантию больше 10 лет");
         this.warranty = warranty;
     }
 

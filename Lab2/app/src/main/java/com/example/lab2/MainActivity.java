@@ -25,6 +25,8 @@ import com.example.lab2.furniture.type.Wardrobe;
 
 public class MainActivity extends AppCompatActivity {
 
+    Furniture furniture = new Furniture();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

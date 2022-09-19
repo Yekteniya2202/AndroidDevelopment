@@ -2,12 +2,16 @@ package com.example.lab2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.lab2.furniture.Furniture;
 
 public class OrderResults extends AppCompatActivity {
+
+    Furniture furniture = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +19,6 @@ public class OrderResults extends AppCompatActivity {
         setContentView(R.layout.activity_order_results);
 
         Bundle args = getIntent().getExtras();
-        Furniture furniture = null;
         if (args != null){
             furniture = (Furniture) args.getSerializable(Furniture.class.getSimpleName());
         }
@@ -37,5 +40,9 @@ public class OrderResults extends AppCompatActivity {
         catch (Exception e){
             textView.setText(e.getMessage().toString());
         }
+    }
+
+    public void backToMain(View view) {
+        finish();
     }
 }
