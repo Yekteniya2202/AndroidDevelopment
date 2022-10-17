@@ -55,6 +55,9 @@ public class GameActivity extends AppCompatActivity {
                 else
                     sound.setEnabled(false);
                 return true;
+            case R.id.restart:
+                DrawView.game.restart();
+                setContentView(new DrawView(this));
         }
         return super.onOptionsItemSelected(menuItem);
     }

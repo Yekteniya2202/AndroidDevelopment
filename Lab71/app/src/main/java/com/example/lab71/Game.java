@@ -13,6 +13,14 @@ public class Game {
         this.run = run;
     }
 
+    public void restart(){
+        player = 1;
+        run = 1;
+        for(int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                a[i][j] = 0;
+    }
+
     public void set(int i, int j) {
         a[i][j] = player;
     }
