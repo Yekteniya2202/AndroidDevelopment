@@ -2,55 +2,48 @@ package com.example.lab71;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    static MediaPlayer musicMediaPlayer;
-    static Sound sound;
+    private static final String PLAYERS = "Players";
+
+    static SharedPreferences settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new DrawView(this));
+        setContentView(R.layout.activity_main);
 
-        musicMediaPlayer = MediaPlayer.create(this, R.raw.music);
-        SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        int soundId = soundPool.load(this, R.raw.sound, 1);
-        sound = new Sound(soundPool);
-        sound.setSoundId(soundId);
-        musicMediaPlayer.setLooping(true);
+        settings = getSharedPreferences(PLAYERS, MODE_PRIVATE);
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return true;
+    public void saveNames(View view) {
+        // получаем введенное имя
+        EditText name1Box = findViewById(R.id.editTextTextPersonName1);
+        EditText name2Box = findViewById(R.id.editTextTextPersonName2);
+        String name1 = name1Box.getText().toString();
+        String name2 = name2Box.getText().toString();
+        // сохраняем его в настройках
+        SharedPreferences.Editor prefEditor = settings.edit();
+        if (!name1.isEmpty()) prefEditor.putString("player1", name1);
+        if (!name2.isEmpty()) prefEditor.putString("player2", name2);
+        prefEditor.apply();
+
+
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 
-    public boolean onOptionsItemSelected(MenuItem menuItem){
-        int id = menuItem.getItemId();
-
-        switch (id){
-            case R.id.music:
-                menuItem.setChecked(!menuItem.isChecked());
-                if(!musicMediaPlayer.isPlaying())
-                    musicMediaPlayer.start();
-                else
-                    musicMediaPlayer.pause();
-                return true;
-            case R.id.sounds:
-                menuItem.setChecked(!menuItem.isChecked());
-                if (!sound.isEnabled())
-                    sound.setEnabled(true);
-                else
-                    sound.setEnabled(false);
-                return true;
-        }
-        return super.onOptionsItemSelected(menuItem);
-    }
 }

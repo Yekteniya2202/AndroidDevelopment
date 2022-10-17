@@ -1,6 +1,7 @@
 package com.example.lab71;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -27,7 +28,7 @@ public class DrawView extends View {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (game.getRun() != 0) {
-            MainActivity.sound.play();
+            GameActivity.sound.play();
             float X = event.getX();
             float Y = event.getY();
 
@@ -73,16 +74,18 @@ public class DrawView extends View {
         canvas.drawLine(2 * w / 3, 50, 2 * w / 3, w, p);
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                if (game.get(i, j) == 1) DrawPic1(canvas, 50 + i * w / 3, 50 + j * w / 3);
-                else if (game.get(i, j) == 2) DrawPic2(canvas, 50 + i * w / 3, 50 + j * w / 3);
+                if (game.get(i, j) == 1) DrawPic1(canvas, 20 + i * w / 3, 20 + j * w / 3);
+                else if (game.get(i, j) == 2) DrawPic2(canvas, 20 + i * w / 3, 20 + j * w / 3);
 
         String s = "";
         int stat = game.check();
-        if (stat == 0 && game.getPlayer() == 1) s = "Ход первого";
-        if (stat == 0 && game.getPlayer() == 2) s = "Ход второго";
+        SharedPreferences sharedPreferences = MainActivity.settings;
 
-        if (stat != 0 && game.getPlayer() == 2) s = "Первый победил";
-        if (stat != 0 && game.getPlayer() == 1) s = "Второй победил";
+        if (stat == 0 && game.getPlayer() == 1) s = "Ход " + sharedPreferences.getString("player1", "первого");
+        if (stat == 0 && game.getPlayer() == 2) s = "Ход " + sharedPreferences.getString("player2", "второго");
+
+        if (stat != 0 && game.getPlayer() == 2) s = sharedPreferences.getString("player1", "Первый") + " победил";
+        if (stat != 0 && game.getPlayer() == 1) s = sharedPreferences.getString("player2", "Второй") + " победил";
 
         p.setColor(Color.RED);
         p.setStrokeMiter(50);
