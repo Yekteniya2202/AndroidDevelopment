@@ -1,4 +1,4 @@
-package com.example.lab71;
+package com.example.lab711;
 
 import android.content.Context;
 import android.content.SharedPreferences;

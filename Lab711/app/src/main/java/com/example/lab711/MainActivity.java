@@ -1,4 +1,4 @@
-package com.example.lab71;
+package com.example.lab711;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-public class GameActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity {
 
 
     static MediaPlayer musicMediaPlayer;
     static Sound sound;
+
+    static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +33,44 @@ public class GameActivity extends AppCompatActivity {
         sound.setSoundId(soundId);
         musicMediaPlayer.setLooping(true);
 
+        sharedPreferences = getSharedPreferences("MUSIC_SOUND", MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("music", false)) {
+            musicMediaPlayer.start();
+        }
+
+        sound.setEnabled(sharedPreferences.getBoolean("sounds", false));
+
+
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mymenu, menu);
+        menu.findItem(R.id.music).setChecked(sharedPreferences.getBoolean("music", false));
+        menu.findItem(R.id.sounds).setChecked(sharedPreferences.getBoolean("sounds", false));
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem menuItem){
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
         int id = menuItem.getItemId();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        switch (id){
+        switch (id) {
             case R.id.music:
                 menuItem.setChecked(!menuItem.isChecked());
-                if(!musicMediaPlayer.isPlaying())
+                if (!musicMediaPlayer.isPlaying()) {
                     musicMediaPlayer.start();
-                else
+                    editor.putBoolean("music", true);
+                } else {
                     musicMediaPlayer.pause();
+                    editor.putBoolean("music", false);
+                }
+                editor.apply();
                 return true;
             case R.id.sounds:
                 menuItem.setChecked(!menuItem.isChecked());
-                if (!sound.isEnabled())
-                    sound.setEnabled(true);
-                else
-                    sound.setEnabled(false);
+                editor.putBoolean("sounds", menuItem.isChecked());
+                sound.setEnabled(menuItem.isChecked());
+                editor.apply();
                 return true;
             case R.id.restart:
                 DrawView.game.restart();
