@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
         musicMediaPlayer = MediaPlayer.create(this, R.raw.music);
         SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         int soundId = soundPool.load(this, R.raw.sound, 1);
+        int winId = soundPool.load(this, R.raw.win, 1);
         sound = new Sound(soundPool);
         sound.setSoundId(soundId);
+        sound.setWinId(winId);
         musicMediaPlayer.setLooping(true);
 
         sharedPreferences = getSharedPreferences("MUSIC_SOUND", MODE_PRIVATE);

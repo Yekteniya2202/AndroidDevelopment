@@ -28,7 +28,7 @@ public class DrawView extends View {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (game.getRun() != 0) {
-            MainActivity.sound.play();
+            MainActivity.sound.playSound();
             float X = event.getX();
             float Y = event.getY();
 
@@ -92,31 +92,39 @@ public class DrawView extends View {
         switch (stat){
             case 1:
                 canvas.drawLine(w/6, 0, w/6, w, p);
+                MainActivity.sound.playWin();
                 break;
             case 2:
                 canvas.drawLine(3*w/6, 0, 3*w/6, w, p);
+                MainActivity.sound.playWin();
                 break;
             case 3:
                 canvas.drawLine(5*w/6, 0, 5*w/6, w, p);
+                MainActivity.sound.playWin();
                 break;
             case 4:
 
                 canvas.drawLine(0, w/6, w, w/6, p);
+                MainActivity.sound.playWin();
                 break;
             case 5:
 
                 canvas.drawLine(0, 3*w/6, w, 3*w/6, p);
+                MainActivity.sound.playWin();
                 break;
             case 6:
 
                 canvas.drawLine(0, 5*w/6, w, 5*w/6, p);
+                MainActivity.sound.playWin();
                 break;
             case 7:
                 canvas.drawLine(0, 0, w, w, p);
+                MainActivity.sound.playWin();
                 break;
             case 8:
 
                 canvas.drawLine(w, 0, 0, w, p);
+                MainActivity.sound.playWin();
                 break;
             default:
                 break;
