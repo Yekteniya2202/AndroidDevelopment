@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="237dp"
+        android:background="#6600ff00"
+        android:gravity="bottom|center"
+        android:padding="8dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="#000"
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:id="@+id/textViewReminder"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:background="#CF7777"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:text="E" />
+</RelativeLayout>
